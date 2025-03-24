@@ -23,6 +23,24 @@ services:
       DATABASE_URL: postgres://postgres:postgres@db:5432/fixsplit_development
     command: ["bin/rails", "server", "-b", "0.0.0.0"]
 
+  frontend:
+    image: node:18
+    working_dir: /frontend
+    volumes:
+      - ./frontend:/frontend
+    ports:
+      - "5173:5173"
+    command: yarn dev --host
+
+  mobile:
+    image: node:18
+    working_dir: /mobile
+    volumes:
+      - ./mobile:/mobile
+    ports:
+      - "8081:8081"
+    command: ["yarn", "start"]
+
 volumes:
   postgres_data:
   bundle_cache:
